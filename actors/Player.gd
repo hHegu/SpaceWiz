@@ -10,6 +10,7 @@ var looking_down := false
 var bounce_speed := 300.0
 var push = 4
 
+
 func _ready():
 	animated_sprite.play("idle")
 
@@ -23,7 +24,6 @@ func _physics_process(_delta: float) -> void:
 	handle_animations()
 	handle_collisions_with_objects()
 	handle_hand_movements()
-
 
 
 func get_direction() -> Vector2:
@@ -63,13 +63,15 @@ func handle_animations() -> void:
 	
 	if !is_floored:
 		animated_sprite.play('jump')
-		
+
+
 func handle_collisions_with_objects() -> void:
 	for index in get_slide_count():
 		var collision = get_slide_collision(index)
 		if collision.collider.is_in_group("objects"):
 			collision.collider.apply_central_impulse(-collision.normal * push)
-			
+
+
 func handle_hand_movements() -> void:
 	if Input.is_action_pressed("lift"):
 		hand.look_at(get_global_mouse_position())

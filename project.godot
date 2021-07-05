@@ -13,9 +13,33 @@ _global_script_classes=[ {
 "class": "Actor",
 "language": "GDScript",
 "path": "res://actors/Actor.gd"
+}, {
+"base": "Pickable",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://actors/Enemy.gd"
+}, {
+"base": "Area2D",
+"class": "JumpTrigger",
+"language": "GDScript",
+"path": "res://util/JumpTrigger.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Pickable",
+"language": "GDScript",
+"path": "res://objects/pickable.gd"
+}, {
+"base": "Node2D",
+"class": "VisionArea",
+"language": "GDScript",
+"path": "res://util/VisionArea.gd"
 } ]
 _global_script_class_icons={
-"Actor": ""
+"Actor": "",
+"Enemy": "",
+"JumpTrigger": "",
+"Pickable": "",
+"VisionArea": ""
 }
 
 [application]
@@ -61,10 +85,14 @@ lift={
 2d_physics/layer_1="default"
 2d_physics/layer_2="player"
 2d_physics/layer_3="objects"
+2d_physics/layer_4="enemy"
+2d_physics/layer_5="ground"
+2d_physics/layer_6="enemy_jump"
 
 [physics]
 
 common/enable_pause_aware_picking=true
+2d/default_gravity=300
 
 [rendering]
 

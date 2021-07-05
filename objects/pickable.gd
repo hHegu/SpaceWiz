@@ -1,5 +1,5 @@
 extends RigidBody2D
-
+class_name Pickable
 
 # Declare member variables here. Examples:
 # var a = 2
@@ -14,6 +14,7 @@ var initial_modulate :Color
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	connect("input_event", self, "_on_box_input_event")
 	initial_modulate = modulate
 	initial_grav_scale = gravity_scale
 	if(lock_rotation):

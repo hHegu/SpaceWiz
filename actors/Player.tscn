@@ -13,28 +13,28 @@ atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 1 )
+atlas = ExtResource( 3 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 1 )
-region = Rect2( 32, 0, 16, 16 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 1 )
-region = Rect2( 48, 0, 16, 16 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 16, 16 )
+atlas = ExtResource( 1 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
-region = Rect2( 16, 0, 16, 16 )
+atlas = ExtResource( 1 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
@@ -43,20 +43,20 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
-"loop": true,
-"name": "walk",
-"speed": 15.0
-}, {
-"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
+}, {
+"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 15.0
 } ]
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 29
 script = ExtResource( 2 )
 speed = Vector2( 112, 250 )
 gravity = 800.0
@@ -71,7 +71,7 @@ animation = "idle"
 
 [node name="Camera2D" type="Camera2D" parent="AnimatedSprite"]
 current = true
-zoom = Vector2( 0.4, 0.4 )
+zoom = Vector2( 0.3, 0.3 )
 smoothing_enabled = true
 
 [node name="HandStart" type="Node2D" parent="."]
