@@ -3,7 +3,7 @@
 [ext_resource path="res://util/VisionArea.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 52.8011, 35.2115 )
+extents = Vector2( 66.9435, 86.6848 )
 
 [node name="VisionArea" type="Node2D"]
 position = Vector2( -1, 0 )
@@ -14,7 +14,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 60, 0 )
+position = Vector2( 66.9504, -3.67081 )
 shape = SubResource( 1 )
 
 [node name="RaycastToPlayer" type="RayCast2D" parent="."]

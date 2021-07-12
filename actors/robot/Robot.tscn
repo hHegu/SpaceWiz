@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://assets/robot/robot1.png" type="Texture" id=1]
 [ext_resource path="res://assets/robot/robot1_run.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/robot/robot_lifted.png" type="Texture" id=4]
 [ext_resource path="res://assets/robot/robot1_shoot.png" type="Texture" id=5]
 [ext_resource path="res://util/VisionArea.tscn" type="PackedScene" id=6]
+[ext_resource path="res://util/Notifier.tscn" type="PackedScene" id=7]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 5.0
@@ -16,28 +17,28 @@ atlas = ExtResource( 1 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 2 )
 region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 16, 16 )
+region = Rect2( 32, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=6]
 atlas = ExtResource( 2 )
-region = Rect2( 16, 0, 16, 16 )
+region = Rect2( 48, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 32, 0, 16, 16 )
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 48, 0, 16, 16 )
+atlas = ExtResource( 4 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="AtlasTexture" id=9]
 atlas = ExtResource( 5 )
@@ -54,14 +55,14 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 3 ), SubResource( 4 ) ],
-"loop": true,
-"name": "helpless_air",
-"speed": 5.0
-}, {
-"frames": [ SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ],
 "loop": true,
 "name": "walk",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "helpless_air",
 "speed": 5.0
 }, {
 "frames": [ SubResource( 9 ), SubResource( 10 ) ],
@@ -80,8 +81,10 @@ extents = Vector2( 6.75159, 2.11602 )
 position = Vector2( 0, 0.0589924 )
 input_pickable = true
 collision_layer = 8
-collision_mask = 14
+collision_mask = 6
 mode = 2
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 3 )
 hover_modulate = Color( 1, 1, 1, 1 )
 attack_range = 200
@@ -121,3 +124,5 @@ collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="JumpCheck"]
 shape = SubResource( 13 )
+
+[node name="Notifier" parent="." instance=ExtResource( 7 )]

@@ -11,7 +11,6 @@ signal player_seen
 
 func _ready():
 	player_body = get_tree().get_root().find_node("Player", true, false)
-	print(player_body)
 
 
 func _process(delta):
@@ -37,7 +36,7 @@ func _on_CheckIntervalTimer_timeout() -> void:
 
 	if !is_player_seen && is_player_in_vision_range:
 		check_interval_timer.start()
-	
+
 	if is_player_seen:
 		emit_signal("player_seen")
 

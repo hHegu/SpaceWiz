@@ -11,9 +11,11 @@ extents = Vector2( 8, 8 )
 ]]
 input_pickable = true
 collision_layer = 4
-collision_mask = 5
+collision_mask = 15
 mass = 3.0
 gravity_scale = 1.2
+contacts_reported = 1
+contact_monitor = true
 script = ExtResource( 2 )
 hover_modulate = Color( 0.576471, 0.843137, 1, 1 )
 

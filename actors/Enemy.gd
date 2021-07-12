@@ -7,12 +7,15 @@ onready var ground_check: Area2D = $Body/GroundCheck
 onready var wall_check: RayCast2D = $Body/WallCheck
 onready var vision_area: VisionArea = $Body/VisionArea
 onready var jump_check: Area2D = $JumpCheck
+onready var notifier: Notifier = $Notifier
 
 export var walk_time := 3.0
 export var idle_time :=	4.0
 export var attack_range := 100
 export(int, "left", "right") var initial_direction
 export var can_jump := true
+export var can_patrol := true
+export var can_move := true
 
 enum {patrol_walk, patrol_idle, alert}
 
@@ -41,9 +44,11 @@ func _ready():
 	if initial_direction == 1:
 		flip()
 	current_state = patrol_idle
-	setup_timers()
+	if can_patrol:
+		setup_timers()
 	setup_vision_area()
 	jump_check.connect("area_entered", self, "on_jump_check_enter")
+	GameManager.connect("on_player_death", self, "start_idling")
 
 
 func _physics_process(delta):
@@ -84,11 +89,10 @@ func hande_states():
 			var direction_vector = Vector2(vision_area.get_direction_to_player().x, 0).normalized()
 			body.scale.x = direction_vector.x
 
-			if !is_in_range:
+			if !is_in_range && can_move:
 				linear_velocity = direction_vector * 30
 				animated_sprite.play("walk")
 			pass
-
 
 func start_walking():
 	walk_timer.stop()	
@@ -128,6 +132,7 @@ func flip():
 	body.scale.x *= -1
 
 func player_seen():
+	notifier.enable()
 	current_state = alert
 
 func on_jump_check_enter(jump_trigger: JumpTrigger):
