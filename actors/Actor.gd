@@ -20,10 +20,9 @@ var is_floored := false
 
 func _physics_process(delta: float) -> void:
 	is_floored = is_on_floor()
-	if !is_floored:
+	if ! is_floored:
 		_velocity.y += gravity * delta
 		_velocity.x = lerp(_velocity.x, 0, air_friction)
 	else:
 		_velocity.y = 0
 		_velocity.x = lerp(_velocity.x, 0, friction)
-

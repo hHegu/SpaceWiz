@@ -20,7 +20,7 @@ var max_dashes := 1
 var dashes := 0
 var dashing := false
 var dash_on_cooldown := false
-var dash_velocity := 320.0;
+var dash_velocity := 320.0
 
 
 func _ready():
@@ -32,26 +32,31 @@ func _physics_process(_delta: float) -> void:
 		_velocity = move_and_slide(_velocity)
 		return
 	is_floored = is_on_floor()
-	
-	if Input.is_action_just_pressed("dash") && !dashing && dashes < max_dashes && !dash_on_cooldown:
+
+	if (
+		Input.is_action_just_pressed("dash")
+		&& ! dashing
+		&& dashes < max_dashes
+		&& ! dash_on_cooldown
+	):
 		dashes = dashes + 1
 		dashing = true
 		dash_on_cooldown = true
 		dash_timer.start()
 		dash_cooldown.start()
 		dash_trail.emitting = true
-	
+
 	var direction := get_direction()
-	
+
 	if is_floored:
 		dashes = 0
 		jumps = 0
 	if jumped:
 		jumps = jumps + 1
-	
+
 	_velocity = calculate_move_velocity(_velocity, direction, speed)
 	var snap: Vector2 = Vector2.DOWN * 10.0 if direction.y == 0.0 else Vector2.ZERO
-	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true, 4,  PI/4, false)
+	_velocity = move_and_slide_with_snap(_velocity, snap, FLOOR_NORMAL, true, 4, PI / 4, false)
 	handle_animations()
 	handle_collisions_with_objects()
 	handle_hand_movements()
@@ -88,15 +93,15 @@ func handle_animations() -> void:
 		dash_trail.scale.x = 1
 	elif _velocity.x < -0.1:
 		animated_sprite.scale.x = -1
-		dash_trail.scale.x = -1		
+		dash_trail.scale.x = -1
 
 	if is_floored and abs(_velocity.x) > 0:
 		animated_sprite.play('walk')
 
 	if is_floored and abs(_velocity.x) == 0:
 		animated_sprite.play('idle')
-	
-	if !is_floored:
+
+	if ! is_floored:
 		animated_sprite.play('jump')
 
 
@@ -114,6 +119,7 @@ func handle_hand_movements() -> void:
 	else:
 		hand.visible = false
 
+
 func hit():
 	GameManager.player_health = GameManager.player_health - 1
 	if GameManager.player_health == 0:
@@ -126,12 +132,13 @@ func die():
 	animated_sprite.play("death")
 	GameManager.player_health = 0
 
+
 func _on_DashTimer_timeout():
 	dashing = false
 	dash_trail.emitting = false
-	pass # Replace with function body.
+	pass  # Replace with function body.
 
 
 func _on_DashCooldown_timeout():
 	dash_on_cooldown = false
-	pass # Replace with function body.
+	pass  # Replace with function body.

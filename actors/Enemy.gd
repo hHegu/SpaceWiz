@@ -10,14 +10,14 @@ onready var jump_check: Area2D = $JumpCheck
 onready var notifier: Notifier = $Notifier
 
 export var walk_time := 3.0
-export var idle_time :=	4.0
+export var idle_time := 4.0
 export var attack_range := 100
-export(int, "left", "right") var initial_direction
+export (int, "left", "right") var initial_direction
 export var can_jump := true
 export var can_patrol := true
 export var can_move := true
 
-enum {patrol_walk, patrol_idle, alert}
+enum { patrol_walk, patrol_idle, alert }
 
 var current_state := patrol_idle
 var walk_timer := Timer.new()
@@ -26,6 +26,7 @@ var is_in_range := false
 var is_on_floor := true
 var is_jumping := false
 var last_jump_time := 0.0
+
 
 func setup_timers():
 	add_child(walk_timer)
@@ -52,24 +53,28 @@ func _ready():
 
 
 func _physics_process(delta):
-
 	var is_alert = current_state == alert
 	is_on_floor = check_is_on_floor()
-	
+
 	if is_being_lifted:
 		animated_sprite.play("helpless_air")
 		current_state = alert
 		return
-	
+
 	# Hack to get jumping work
 	if is_on_floor && is_jumping && OS.get_ticks_msec() - last_jump_time > 500:
 		is_jumping = false
 		return
-	
-	if !is_on_floor || is_jumping:
+
+	if ! is_on_floor || is_jumping:
 		return
-	
-	if !is_alert && is_next_to_wall() && current_state == patrol_walk && walk_timer.wait_time - walk_timer.time_left > 0.2:
+
+	if (
+		! is_alert
+		&& is_next_to_wall()
+		&& current_state == patrol_walk
+		&& walk_timer.wait_time - walk_timer.time_left > 0.2
+	):
 		start_idling()
 
 	hande_states()
@@ -85,17 +90,21 @@ func hande_states():
 			animated_sprite.play("idle")
 			pass
 		alert:
-			is_in_range = vision_area.get_distance_to_player() < attack_range && vision_area.raycast_player()
+			is_in_range = (
+				vision_area.get_distance_to_player() < attack_range
+				&& vision_area.raycast_player()
+			)
 			var direction_vector = Vector2(vision_area.get_direction_to_player().x, 0).normalized()
 			body.scale.x = direction_vector.x
 
-			if !is_in_range && can_move:
+			if ! is_in_range && can_move:
 				linear_velocity = direction_vector * 30
 				animated_sprite.play("walk")
 			pass
 
+
 func start_walking():
-	walk_timer.stop()	
+	walk_timer.stop()
 	current_state = patrol_walk
 	walk_timer.wait_time = walk_time
 	walk_timer.start()
@@ -128,16 +137,19 @@ func is_next_to_wall():
 
 
 func flip():
-	_walk_direction = _walk_direction * -1	
+	_walk_direction = _walk_direction * -1
 	body.scale.x *= -1
+
 
 func player_seen():
 	notifier.enable()
 	current_state = alert
 
+
 func on_jump_check_enter(jump_trigger: JumpTrigger):
-	if(can_jump && jump_trigger.has_method("get_jump_dir")):
+	if can_jump && jump_trigger.has_method("get_jump_dir"):
 		jump(jump_trigger.get_jump_dir(_walk_direction.normalized().x))
+
 
 func jump(dir: Vector2):
 	is_jumping = true

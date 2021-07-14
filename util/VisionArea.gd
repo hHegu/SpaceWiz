@@ -34,7 +34,7 @@ func _on_CheckIntervalTimer_timeout() -> void:
 
 	is_player_seen = raycast_player()
 
-	if !is_player_seen && is_player_in_vision_range:
+	if ! is_player_seen && is_player_in_vision_range:
 		check_interval_timer.start()
 
 	if is_player_seen:
@@ -62,5 +62,5 @@ func raycast_player():
 
 
 func get_player_raycast():
-	raycast_player() 
+	raycast_player()
 	return raycast_to_player
