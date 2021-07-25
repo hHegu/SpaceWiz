@@ -6,7 +6,8 @@ onready var animated_sprite: AnimatedSprite = $AnimatedSprite
 onready var hand: Node2D = $HandStart
 onready var dash_timer: Timer = $DashTimer
 onready var dash_cooldown: Timer = $DashCooldown
-onready var dash_trail: Particles2D = $DashTrail
+onready var dash_trail: Particles2D = $AnimatedSprite/DashTrail
+onready var dash_trail_left: Particles2D = $AnimatedSprite/DashTrail_left
 
 var jumped := false
 var looking_up := false
@@ -28,7 +29,7 @@ func _ready():
 
 
 func _physics_process(_delta: float) -> void:
-	if GameManager.is_dead:
+	if GameManager.is_player_dead():
 		_velocity = move_and_slide(_velocity)
 		return
 	is_floored = is_on_floor()
@@ -44,7 +45,10 @@ func _physics_process(_delta: float) -> void:
 		dash_on_cooldown = true
 		dash_timer.start()
 		dash_cooldown.start()
-		dash_trail.emitting = true
+		if _velocity.x > 0.1:
+			dash_trail.emitting = true
+		else:
+			dash_trail_left.emitting = true
 
 	var direction := get_direction()
 
@@ -104,6 +108,9 @@ func handle_animations() -> void:
 	if ! is_floored:
 		animated_sprite.play('jump')
 
+	if dashing:
+		animated_sprite.play('dash_right')
+
 
 func handle_collisions_with_objects() -> void:
 	for index in get_slide_count():
@@ -136,6 +143,7 @@ func die():
 func _on_DashTimer_timeout():
 	dashing = false
 	dash_trail.emitting = false
+	dash_trail_left.emitting = false
 	pass  # Replace with function body.
 
 

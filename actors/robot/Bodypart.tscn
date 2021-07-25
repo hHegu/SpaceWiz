@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://actors/robot/Bodypart.gd" type="Script" id=1]
 [ext_resource path="res://assets/robot/robot_in_pieces.png" type="Texture" id=2]
@@ -30,6 +30,9 @@ animations = [ {
 [sub_resource type="CircleShape2D" id=6]
 radius = 2.27344
 
+[sub_resource type="OccluderPolygon2D" id=7]
+polygon = PoolVector2Array( -1.09054, -1.96501, 1.92231, -1.9319, 1.82299, 1.94176, -1.09054, 1.94176 )
+
 [node name="Bodypart" type="RigidBody2D"]
 input_pickable = true
 collision_layer = 128
@@ -44,3 +47,6 @@ frame = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 6 )
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource( 7 )

@@ -23,6 +23,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+text_speed = 0.03
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.05

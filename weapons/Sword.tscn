@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/slash.png" type="Texture" id=1]
 [ext_resource path="res://weapons/Sword.gd" type="Script" id=2]
+[ext_resource path="res://assets/lights/zd6gkwyw.bmp" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 6.16178, 7.19412 )
+extents = Vector2( 6.16178, 10.0603 )
 
 [sub_resource type="AtlasTexture" id=2]
 atlas = ExtResource( 1 )
@@ -51,6 +52,15 @@ disabled = true
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 position = Vector2( 6.62913, 1.67938 )
 frames = SubResource( 6 )
+
+[node name="Light2D" type="Light2D" parent="."]
+position = Vector2( 6.17363, 1.54341 )
+texture = ExtResource( 3 )
+texture_scale = 0.07
+color = Color( 0.00784314, 0.921569, 0, 1 )
+energy = 0.0
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_Sword_body_entered"]
 [connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]

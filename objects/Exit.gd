@@ -1,6 +1,9 @@
 extends Area2D
 
 onready var sprite: AnimatedSprite = $AnimatedSprite
+onready var light: Light2D = $Light2D
+
+export var destination_level: String
 
 
 func _ready():
@@ -9,8 +12,10 @@ func _ready():
 
 func on_exit_door_open():
 	sprite.play("open")
+	light.enabled = true
 
 
 func _on_Exit_body_entered(body):
 	if GameManager.exit_door_open:
-		print("jee")
+		GameManager.exit_door_open = false
+		GameManager.current_level = GameManager.get(destination_level)

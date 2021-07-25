@@ -1,15 +1,26 @@
 extends Node2D
 
 onready var world = $World
-
-var level1 = preload("res://scenes/level_1.tscn")
+onready var fade = $CanvasLayer/Fade
+var level_path: String
 
 
 func _ready():
-	world.add_child(level1.instance())
+	on_level_changed(GameManager.level1)
+	on_fade_out_finished()
+	fade.connect("on_fade_out_finished", self, "on_fade_out_finished")
+	GameManager.connect("on_level_change", self, "on_level_changed")
 
 
-func change_level(level):
-	if world.get_child_count() > 0:
-		world.get_children()[0].queue_free()
-	world.add_child(level)
+func on_level_changed(level: String):
+	level_path = level
+	fade.fade_out()
+
+
+func on_fade_out_finished():
+	for n in world.get_children():
+		world.remove_child(n)
+		n.queue_free()
+
+	var level_instance = load(level_path).instance()
+	world.call_deferred("add_child", level_instance)

@@ -66,8 +66,6 @@ func _on_body_entered(body: Node2D):
 		else body.get('linear_velocity').length_squared()
 	)
 	var relative_vel = abs(object_vel - past_velocities[1])
-	print(name + '=')
-	print(relative_vel)
 	if relative_vel > 30000:
 		if body.has_method("hit"):
 			body.hit()

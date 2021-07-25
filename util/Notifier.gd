@@ -13,16 +13,9 @@ func _ready():
 
 
 func enable():
-	print("enabled!")
 	collision_shape.disabled = false
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _on_Notifier_body_entered(body):
 	if body.has_method('player_seen'):
 		body.player_seen()
-	pass  # Replace with function body.
